@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BWxWrath Merchandise & Twitch</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Hero Section -->
+  <header class="hero">
+    <h1>BWxWrath Merch & Stream</h1>
+    <p>Grab exclusive gear or catch the live action on Twitch!</p>
+    <a href="#merch" class="btn">Shop Merch</a>
+    <a href="#stream" class="btn outline">Watch Live</a>
+  </header>
+
+  <!-- Merch Gallery -->
+  <section id="merch" class="merch-gallery">
+    <h2>Featured Merchandise</h2>
+    <div class="grid">
+      <!-- Repeat this card for each product -->
+      <a href="https://www.redbubble.com/people/BWxWrath/shop?ref=account-nav" target="_blank" class="card">
+        <img src="assets/shirt1.jpg" alt="Cool Tee">
+        <div class="card-info">
+          <h3>Cool Tee</h3>
+          <p>$25.00</p>
+        </div>
+      </a>
+      <!-- …add more cards… -->
+    </div>
+  </section>
+
+  <!-- Twitch Embed -->
+  <section id="stream" class="stream-section">
+    <h2>Live Stream</h2>
+    <div class="twitch-container">
+      <div id="twitch-embed"></div>
+      <iframe
+        src="https://www.twitch.tv/embed/BWxWrath/chat?parent=bwxwrath.com"
+        height="500"
+        width="350"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- Twitch Embed Script -->
+  <script src="https://embed.twitch.tv/embed/v1.js"></script>
+  <script>
+    new Twitch.Embed("twitch-embed", {
+      width: 854,
+      height: 480,
+      channel: "BWxWrath",
+      parent: ["bwxwrath.com"]
+    });
+  </script>
+</body>
+</html>
