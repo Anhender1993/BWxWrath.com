@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BWxWrath.com</title>
+  <title>BWxWrath Merchandise & Stream</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -49,7 +49,7 @@
 
   <script src="https://embed.twitch.tv/embed/v1.js"></script>
   <script>
-    // Twitch embed
+    // Twitch embed (video only)
     new Twitch.Embed("twitch-embed", {
       width: "100%",
       height: 480,
@@ -57,11 +57,11 @@
       parent: ["bwxwrath.com"]
     });
 
-    // Theme toggle
+    // Theme toggle functionality
     const toggle = document.getElementById("theme-switch");
-    const current = localStorage.getItem("theme") || "light";
-    document.documentElement.setAttribute("data-theme", current);
-    toggle.checked = current === "dark";
+    const currentTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    toggle.checked = currentTheme === "dark";
 
     toggle.addEventListener("change", () => {
       const theme = toggle.checked ? "dark" : "light";
