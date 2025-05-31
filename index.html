@@ -1,81 +1,127 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BWxWrath.com</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Header / Hero (full-width banner) -->
+  <!-- ========= HEADER / HERO ========= -->
   <header class="hero">
     <div class="container header-inner">
-      <h1>BWxWrath</h1>
-      <p>Your exclusive merch & live Twitch action</p>
-      <div class="buttons">
-        <a href="#merch" class="btn">Shop Merch</a>
-        <a href="#stream" class="btn outline">Watch Live</a>
+      <!-- Logo/Title (Centered) -->
+      <div class="logo-and-title">
+        <h1 class="site-title">BWxWrath</h1>
+        <p class="site-subtitle">Your exclusive merch & live Twitch action</p>
       </div>
+
+      <!-- Desktop Nav (hidden on mobile) -->
+      <nav class="nav-desktop">
+        <a href="#merch" class="nav-link">Merch</a>
+        <a href="#stream" class="nav-link">Live Stream</a>
+      </nav>
+
+      <!-- Hamburger (only on mobile, positioned top-left) -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        &#9776;
+      </button>
+
+      <!-- Mobile Nav (slides down when .open is present) -->
+      <nav class="nav-mobile" id="nav-mobile">
+        <ul>
+          <li><a href="#merch" class="nav-link">Merch</a></li>
+          <li><a href="#stream" class="nav-link">Live Stream</a></li>
+        </ul>
+      </nav>
+
+      <!-- Theme Toggle (positioned top-right) -->
       <div class="theme-toggle" title="Toggle light/dark theme">
         <label class="switch">
-          <input type="checkbox" id="theme-switch" aria-label="Toggle theme">
+          <input type="checkbox" id="theme-switch" aria-label="Toggle theme" />
           <span class="slider"></span>
         </label>
       </div>
     </div>
   </header>
 
-  <!-- Main Content Container (fixed max-width, centered) -->
+  <!-- ========= MAIN CONTENT ========= -->
   <main class="container main-inner">
-    <!-- Two-column layout: left=Merch, right=Twitch -->
     <div class="columns">
-      <!-- LEFT COLUMN: Merch -->
+      <!-- LEFT COLUMN: Merch Gallery -->
       <section id="merch" class="merch-gallery column-left">
         <h2>Featured Merchandise</h2>
         <div class="grid">
-          <a href="https://www.redbubble.com/people/BWxWrath/shop" target="_blank" class="card merch-card">
-            <img src="assets/Redbubblelogo.jpeg" alt="BWxWrath Redbubble Store Logo" class="merch-logo">
+          <a
+            href="https://www.redbubble.com/people/BWxWrath/shop"
+            target="_blank"
+            class="card merch-card"
+          >
+            <img
+              src="assets/Redbubblelogo.jpeg"
+              alt="BWxWrath Redbubble Store Logo"
+              class="merch-logo"
+            />
             <div class="card-info">
               <h3>Redbubble Store</h3>
               <p>Explore all designs</p>
             </div>
           </a>
-          <!-- Add more “.merch-card” items here as needed -->
         </div>
       </section>
 
-      <!-- RIGHT COLUMN: Twitch Embed -->
+      <!-- RIGHT COLUMN: Twitch Link (now just an image link) -->
       <section id="stream" class="stream-section column-right">
         <h2>Live Stream</h2>
-        <div class="twitch-wrapper">
-          <div id="twitch-embed"></div>
+        <div class="grid">
+          <a
+            href="https://twitch.tv/BWxWrath"
+            target="_blank"
+            class="card twitch-card"
+          >
+            <img
+              src="assets/sevens.png"
+              alt="Visit BWxWrath on Twitch"
+              class="twitch-logo"
+            />
+            <div class="card-info">
+              <h3>Watch on Twitch</h3>
+            </div>
+          </a>
         </div>
       </section>
     </div>
   </main>
 
-  <!-- Twitch + Theme Toggle Scripts -->
-  <script src="https://embed.twitch.tv/embed/v1.js"></script>
+  <!-- ========= SCRIPTS ========= -->
   <script>
-    // Initialize Twitch embed (desktop-sized)
-    new Twitch.Embed("twitch-embed", {
-      width: 854,
-      height: 480,
-      channel: "BWxWrath",
-      parent: ["bwxwrath.com"]
-    });
-
-    // Theme toggle functionality (persist via localStorage)
+    // 1. Theme toggle logic (works as before)
     const toggle = document.getElementById("theme-switch");
     const savedTheme = localStorage.getItem("theme");
-    const defaultTheme = savedTheme || "light";
-    document.documentElement.setAttribute("data-theme", defaultTheme);
-    if (defaultTheme === "dark") toggle.checked = true;
+    const initialTheme = savedTheme || "light";
+    document.documentElement.setAttribute("data-theme", initialTheme);
+    if (initialTheme === "dark") {
+      toggle.checked = true;
+    }
     toggle.addEventListener("change", () => {
       const newTheme = toggle.checked ? "dark" : "light";
       document.documentElement.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
     });
+
+    // 2. Hamburger menu toggle (unchanged)
+    const hamburger = document.getElementById("hamburger");
+    const navMobile = document.getElementById("nav-mobile");
+    hamburger.addEventListener("click", () => {
+      navMobile.classList.toggle("open");
+    });
+    document
+      .querySelectorAll(".nav-mobile .nav-link")
+      .forEach((link) => {
+        link.addEventListener("click", () => {
+          navMobile.classList.remove("open");
+        });
+      });
   </script>
 </body>
 </html>
