@@ -7,49 +7,57 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Header / Hero (full-width banner) -->
   <header class="hero">
-    <div class="hero-content">
+    <div class="container header-inner">
       <h1>BWxWrath</h1>
       <p>Your exclusive merch & live Twitch action</p>
       <div class="buttons">
         <a href="#merch" class="btn">Shop Merch</a>
         <a href="#stream" class="btn outline">Watch Live</a>
       </div>
-    </div>
-    <div class="theme-toggle" title="Toggle light/dark theme">
-      <label class="switch">
-        <input type="checkbox" id="theme-switch" aria-label="Toggle theme">
-        <span class="slider"></span>
-      </label>
+      <div class="theme-toggle" title="Toggle light/dark theme">
+        <label class="switch">
+          <input type="checkbox" id="theme-switch" aria-label="Toggle theme">
+          <span class="slider"></span>
+        </label>
+      </div>
     </div>
   </header>
 
-  <main>
-    <section id="merch" class="merch-gallery">
-      <h2>Featured Merchandise</h2>
-      <div class="grid">
-        <a href="https://www.redbubble.com/people/BWxWrath/shop" target="_blank" class="card merch-card">
-          <img src="assets/Redbubblelogo.jpeg" alt="BWxWrath Redbubble Store Logo" class="merch-logo">
-          <div class="card-info">
-            <h3>Redbubble Store</h3>
-            <p>Explore all designs</p>
-          </div>
-        </a>
-        <!-- Add more product cards as needed -->
-      </div>
-    </section>
+  <!-- Main Content Container (fixed max-width, centered) -->
+  <main class="container main-inner">
+    <!-- Two-column layout: left=Merch, right=Twitch -->
+    <div class="columns">
+      <!-- LEFT COLUMN: Merch -->
+      <section id="merch" class="merch-gallery column-left">
+        <h2>Featured Merchandise</h2>
+        <div class="grid">
+          <a href="https://www.redbubble.com/people/BWxWrath/shop" target="_blank" class="card merch-card">
+            <img src="assets/Redbubblelogo.jpeg" alt="BWxWrath Redbubble Store Logo" class="merch-logo">
+            <div class="card-info">
+              <h3>Redbubble Store</h3>
+              <p>Explore all designs</p>
+            </div>
+          </a>
+          <!-- Add more “.merch-card” items here as needed -->
+        </div>
+      </section>
 
-    <section id="stream" class="stream-section">
-      <h2>Live Stream</h2>
-      <div class="twitch-container">
-        <div id="twitch-embed"></div>
-      </div>
-    </section>
+      <!-- RIGHT COLUMN: Twitch Embed -->
+      <section id="stream" class="stream-section column-right">
+        <h2>Live Stream</h2>
+        <div class="twitch-wrapper">
+          <div id="twitch-embed"></div>
+        </div>
+      </section>
+    </div>
   </main>
 
+  <!-- Twitch + Theme Toggle Scripts -->
   <script src="https://embed.twitch.tv/embed/v1.js"></script>
   <script>
-    // Initialize Twitch embed (video-only)
+    // Initialize Twitch embed (desktop-sized)
     new Twitch.Embed("twitch-embed", {
       width: 854,
       height: 480,
@@ -57,13 +65,12 @@
       parent: ["bwxwrath.com"]
     });
 
-    // Theme toggle functionality
+    // Theme toggle functionality (persist via localStorage)
     const toggle = document.getElementById("theme-switch");
     const savedTheme = localStorage.getItem("theme");
-    const defaultTheme = savedTheme ? savedTheme : "light";
+    const defaultTheme = savedTheme || "light";
     document.documentElement.setAttribute("data-theme", defaultTheme);
     if (defaultTheme === "dark") toggle.checked = true;
-
     toggle.addEventListener("change", () => {
       const newTheme = toggle.checked ? "dark" : "light";
       document.documentElement.setAttribute("data-theme", newTheme);
