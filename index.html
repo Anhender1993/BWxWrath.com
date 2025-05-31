@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BWxWrath Merchandise & Stream</title>
+  <title>BWxWrath.com</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <a href="#stream" class="btn outline">Watch Live</a>
       </div>
     </div>
-    <div class="theme-toggle">
+    <div class="theme-toggle" title="Toggle light/dark theme">
       <label class="switch">
         <input type="checkbox" id="theme-switch" aria-label="Toggle theme">
         <span class="slider"></span>
@@ -28,14 +28,14 @@
     <section id="merch" class="merch-gallery">
       <h2>Featured Merchandise</h2>
       <div class="grid">
-        <a href="https://www.redbubble.com/people/BWxWrath/shop" target="_blank" class="card">
-          <img src="assets/Redbubblelogo.jpeg" alt="Redbubble Logo">
+        <a href="https://www.redbubble.com/people/BWxWrath/shop" target="_blank" class="card merch-card">
+          <img src="assets/Redbubblelogo.jpeg" alt="BWxWrath Redbubble Store Logo" class="merch-logo">
           <div class="card-info">
             <h3>Redbubble Store</h3>
-            <p>Browse all products</p>
+            <p>Explore all designs</p>
           </div>
         </a>
-        <!-- …more cards… -->
+        <!-- Add more product cards as needed -->
       </div>
     </section>
 
@@ -49,9 +49,9 @@
 
   <script src="https://embed.twitch.tv/embed/v1.js"></script>
   <script>
-    // Twitch embed (video-only)
+    // Initialize Twitch embed (video-only)
     new Twitch.Embed("twitch-embed", {
-      width: "100%",
+      width: 854,
       height: 480,
       channel: "BWxWrath",
       parent: ["bwxwrath.com"]
@@ -59,14 +59,15 @@
 
     // Theme toggle functionality
     const toggle = document.getElementById("theme-switch");
-    const currentTheme = localStorage.getItem("theme") || "light";
-    document.documentElement.setAttribute("data-theme", currentTheme);
-    toggle.checked = currentTheme === "dark";
+    const savedTheme = localStorage.getItem("theme");
+    const defaultTheme = savedTheme ? savedTheme : "light";
+    document.documentElement.setAttribute("data-theme", defaultTheme);
+    if (defaultTheme === "dark") toggle.checked = true;
 
     toggle.addEventListener("change", () => {
-      const theme = toggle.checked ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", theme);
-      localStorage.setItem("theme", theme);
+      const newTheme = toggle.checked ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
     });
   </script>
 </body>
