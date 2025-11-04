@@ -1,12 +1,12 @@
 /* ─── Theme Variables ───────────────────────────────────────────────────────── */
 :root {
-  --bg-color: #FFFFFF;                 /* White background for light mode */
-  --text-color: #000000;               /* Black text for light mode */
+  --bg-color: #FFFFFF;                 /* Light mode background */
+  --text-color: #000000;               /* Light mode text */
   --accent-color: #8B0000;             /* Dark red accent */
   --card-bg: #F5F5F5;                  /* Light gray cards */
   --header-bg: #8B0000;                /* Dark red banner for header */
-  --section-divider: #660000;          /* Even darker red for dividers */
-  --shadow: rgba(0, 0, 0, 0.1);         /* Soft shadow in light mode */
+  --section-divider: #660000;          /* Darker red divider */
+  --shadow: rgba(0, 0, 0, 0.1);        /* Soft shadow in light mode */
 }
 
 [data-theme="dark"] {
@@ -37,8 +37,7 @@ body {
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0 1rem;
 }
 
 /* ─── HERO / HEADER ─────────────────────────────────────────────────────────── */
@@ -49,11 +48,15 @@ body {
 }
 .header-inner {
   position: relative;
-  text-align: center; 
-  padding: 0 2rem;    
+  text-align: center;
+  padding: 0 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Logo & Title area (centered) */
+/* Logo & Title (centered) */
 .logo-and-title {
   display: inline-block;
 }
@@ -65,31 +68,11 @@ body {
   opacity: 0.9;
 }
 
-/* Desktop navigation (top-right) */
-.nav-desktop {
-  position: absolute;
-  top: 50%;
-  right: 2rem;
-  transform: translateY(-50%);
-  display: flex;
-  gap: 1rem;
-}
-.nav-desktop .nav-link {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 0.25rem 0.5rem;
-}
-.nav-desktop .nav-link:hover {
-  text-decoration: underline;
-}
-
-/* Hamburger button (hidden on desktop, shown on mobile, top-left) */
+/* Hamburger (always shown, below title, FAR left) */
 .hamburger {
-  display: none;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
+  margin-top: 0.75rem;
+  align-self: flex-start;      /* left side of container */
+  margin-left: -0.75rem;       /* nudge closer to the screen edge */
   background: none;
   border: none;
   color: #fff;
@@ -97,44 +80,64 @@ body {
   cursor: pointer;
 }
 
-/* Mobile navigation (hidden by default) */
+/* Single nav for all viewports:
+   - Collapsed: hidden
+   - Open: full-width bar under the title */
 .nav-mobile {
   display: none;
-  width: 100%;
+  margin-top: 0.5rem;
+  align-self: stretch;         /* span full container width */
   background: var(--card-bg);
-  position: absolute;
-  top: 100%;
-  left: 0;
-  border-top: 1px solid var(--section-divider);
   box-shadow: 0 4px 8px var(--shadow);
-  z-index: 10;
+  border-top: 1px solid var(--section-divider);
+  border-bottom: 1px solid var(--section-divider);
 }
 .nav-mobile.open {
   display: block;
 }
 .nav-mobile ul {
   list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
 }
 .nav-mobile li {
-  border-bottom: 1px solid var(--section-divider);
+  border-right: 1px solid var(--section-divider);
+}
+.nav-mobile li:last-child {
+  border-right: none;
 }
 .nav-mobile .nav-link {
   display: block;
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 1.25rem;
   color: var(--text-color);
   text-decoration: none;
   font-weight: 600;
+  font-size: 0.95rem;
 }
 .nav-mobile .nav-link:hover {
   background: var(--section-divider);
+  color: #fff;
 }
 
-/* Theme switch (top-right) */
+/* Theme toggle (top-right, labeled) */
 .theme-toggle {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.3rem;
+  right: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
 }
+.theme-label {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Switch styling */
 .switch {
   position: relative;
   display: inline-block;
@@ -172,50 +175,52 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* ─── Section Dividers ──────────────────────────────────────────────────────── */
+/* ─── Sections / Panels ───────────────────────────────────────────────────── */
 section {
   border-top: 4px solid var(--section-divider);
 }
 
-/* ─── TWO-COLUMN LAYOUT ───────────────────────────────────────────────────── */
+.main-inner {
+  padding-bottom: 2rem;
+}
+
+/* Two-column panel layout (desktop) */
 .columns {
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
   margin-top: 2rem;
 }
-
-/* LEFT COLUMN: Merch Gallery */
-.column-left {
-  flex: 1 1 400px;
-  min-width: 240px;
-}
-
-/* RIGHT COLUMN: Twitch Link */
+.column-left,
 .column-right {
   flex: 1 1 400px;
-  min-width: 240px;
+  min-width: 260px;
 }
 
-/* ─── MERCH GALLERY CARD ───────────────────────────────────────────────────── */
-.merch-gallery {
+/* Shared section styles for top panels & podcast */
+.panel-section,
+.podcast-section {
   background: var(--bg-color);
   text-align: center;
-  padding: 1rem;
+  padding: 1.5rem 0;
 }
-.merch-gallery h2 {
+.panel-section h2,
+.podcast-section h2 {
   margin-bottom: 1.5rem;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: var(--accent-color);
 }
+
+/* Cards & grids */
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
   gap: 1.5rem;
 }
-.merch-card,
-.twitch-card {
+
+/* Top cards: identical size/layout */
+.card {
   background: var(--card-bg);
   border-radius: 8px;
   overflow: hidden;
@@ -223,79 +228,56 @@ section {
   text-decoration: none;
   color: var(--text-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 240px;
+  width: 260px;
   text-align: center;
-  margin: auto;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 260px;             /* equal height */
 }
-.merch-logo,
-.twitch-logo {
+.panel-logo {
   width: 100%;
   max-width: 200px;
   margin: 1rem auto 0;
   display: block;
 }
 .card-info {
-  padding: 1rem;
+  padding: 1rem 1.25rem 1.25rem;
 }
 .card-info h3 {
   margin-bottom: 0.25rem;
 }
-.merch-card:hover,
-.twitch-card:hover {
+.card-info p {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+.card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px var(--shadow);
 }
 
-/* Twitch‐specific section title */
-.stream-section {
-  background: var(--bg-color);
-  text-align: center;
-  padding: 1rem;
+/* Podcast embed (centered) */
+.podcast-section {
+  padding: 2rem 0 2.5rem;
 }
-.stream-section h2 {
-  margin-bottom: 1.5rem;
-  font-size: 2.5rem;
-  color: var(--accent-color);
+.podcast-embed {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-/* ─── BUTTON STYLES ─────────────────────────────────────────────────────────── */
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: var(--accent-color);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px var(--shadow);
-}
-.btn.outline {
-  background: transparent;
-  color: var(--accent-color);
-  border: 2px solid var(--accent-color);
-}
+/* ─── MEDIA QUERIES ───────────────────────────────────────────────────────── */
 
-/* ─── MEDIA QUERIES (MOBILE FIRST ADJUSTMENTS) ─────────────────────────────── */
+/* Stack panels on smaller screens */
 @media (max-width: 768px) {
-  /* HEADER ADJUSTMENTS */
-  .nav-desktop {
-    display: none;
-  }
-  .hamburger {
-    display: block;
-  }
-  .nav-mobile {
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-
-  /* STACK COLUMNS VERTICALLY */
   .columns {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .panel-section,
+  .podcast-section {
+    padding: 1.25rem 0;
   }
 }

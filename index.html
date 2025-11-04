@@ -16,27 +16,23 @@
         <p class="site-subtitle">Your exclusive merch & live Twitch action</p>
       </div>
 
-      <!-- Desktop Nav (hidden on mobile) -->
-      <nav class="nav-desktop">
-        <a href="#merch" class="nav-link">Merch</a>
-        <a href="#stream" class="nav-link">Live Stream</a>
-      </nav>
-
-      <!-- Hamburger (only on mobile, positioned top-left) -->
+      <!-- Row under title: hamburger on far left -->
       <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
         &#9776;
       </button>
 
-      <!-- Mobile Nav (slides down when .open is present) -->
+      <!-- Single nav (used on both desktop & mobile) -->
       <nav class="nav-mobile" id="nav-mobile">
         <ul>
           <li><a href="#merch" class="nav-link">Merch</a></li>
           <li><a href="#stream" class="nav-link">Live Stream</a></li>
+          <li><a href="#podcast" class="nav-link">Wrathcast</a></li>
         </ul>
       </nav>
 
-      <!-- Theme Toggle (positioned top-right) -->
+      <!-- Theme Toggle (top-right, labeled) -->
       <div class="theme-toggle" title="Toggle light/dark theme">
+        <span class="theme-label">Light / Dark</span>
         <label class="switch">
           <input type="checkbox" id="theme-switch" aria-label="Toggle theme" />
           <span class="slider"></span>
@@ -47,9 +43,10 @@
 
   <!-- ========= MAIN CONTENT ========= -->
   <main class="container main-inner">
+    <!-- Top row: two symmetrical cards -->
     <div class="columns">
       <!-- LEFT COLUMN: Merch Gallery -->
-      <section id="merch" class="merch-gallery column-left">
+      <section id="merch" class="panel-section column-left">
         <h2>Featured Merchandise</h2>
         <div class="grid">
           <a
@@ -60,7 +57,7 @@
             <img
               src="assets/Redbubblelogo.jpeg"
               alt="BWxWrath Redbubble Store Logo"
-              class="merch-logo"
+              class="panel-logo"
             />
             <div class="card-info">
               <h3>Redbubble Store</h3>
@@ -70,8 +67,8 @@
         </div>
       </section>
 
-      <!-- RIGHT COLUMN: Twitch Link (now just an image link) -->
-      <section id="stream" class="stream-section column-right">
+      <!-- RIGHT COLUMN: Twitch Link -->
+      <section id="stream" class="panel-section column-right">
         <h2>Live Stream</h2>
         <div class="grid">
           <a
@@ -82,20 +79,39 @@
             <img
               src="assets/sevens.png"
               alt="Visit BWxWrath on Twitch"
-              class="twitch-logo"
+              class="panel-logo"
             />
             <div class="card-info">
               <h3>Watch on Twitch</h3>
+              <p>Catch the stream live</p>
             </div>
           </a>
         </div>
       </section>
     </div>
+
+    <!-- Bottom row: centered Wrathcast -->
+    <section id="podcast" class="podcast-section">
+      <h2>Wrathcast on Spotify</h2>
+      <div class="podcast-embed">
+        <iframe
+          data-testid="embed-iframe"
+          style="border-radius:12px"
+          src="https://open.spotify.com/embed/show/1beNMUuJ7VaADl5vpTBjmp?utm_source=generator"
+          width="100%"
+          height="352"
+          frameborder="0"
+          allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
   </main>
 
   <!-- ========= SCRIPTS ========= -->
   <script>
-    // 1. Theme toggle logic (works as before)
+    // Theme toggle logic
     const toggle = document.getElementById("theme-switch");
     const savedTheme = localStorage.getItem("theme");
     const initialTheme = savedTheme || "light";
@@ -109,7 +125,7 @@
       localStorage.setItem("theme", newTheme);
     });
 
-    // 2. Hamburger menu toggle (unchanged)
+    // Hamburger menu toggle
     const hamburger = document.getElementById("hamburger");
     const navMobile = document.getElementById("nav-mobile");
     hamburger.addEventListener("click", () => {
